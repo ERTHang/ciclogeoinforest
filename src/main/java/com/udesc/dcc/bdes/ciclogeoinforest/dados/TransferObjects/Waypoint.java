@@ -19,6 +19,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -26,6 +28,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "waypoint")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Waypoint.findAll", query = "SELECT w FROM Waypoint w"),
     @NamedQuery(name = "Waypoint.findByCodwp", query = "SELECT w FROM Waypoint w WHERE w.codwp = :codwp"),
@@ -99,6 +102,7 @@ public class Waypoint implements Serializable {
         this.geometria = geometria;
     }
 
+    @XmlTransient
     public List<Categoria> getCategoriasList() {
         return categoriasList;
     }
@@ -115,6 +119,7 @@ public class Waypoint implements Serializable {
         this.codt = codt;
     }
 
+    @XmlTransient
     public List<Imagem> getImagemList() {
         return imagemList;
     }

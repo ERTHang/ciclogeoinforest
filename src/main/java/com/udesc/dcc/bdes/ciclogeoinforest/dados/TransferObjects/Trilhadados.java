@@ -5,6 +5,7 @@
 package com.udesc.dcc.bdes.ciclogeoinforest.dados.TransferObjects;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -12,12 +13,15 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -25,6 +29,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "trilhadados")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Trilhadados.findAll", query = "SELECT t FROM Trilhadados t"),
     @NamedQuery(name = "Trilhadados.findByCodt", query = "SELECT t FROM Trilhadados t WHERE t.codt = :codt"),
@@ -155,6 +160,7 @@ public class Trilhadados implements Serializable {
         this.cidCod = cidCod;
     }
 
+    @XmlTransient
     public List<Regiao> getRegiaoList() {
         return regiaoList;
     }
@@ -163,6 +169,7 @@ public class Trilhadados implements Serializable {
         this.regiaoList = regiaoList;
     }
 
+    @XmlTransient
     public List<Bairro> getBairrosList() {
         return bairrosList;
     }
@@ -171,6 +178,7 @@ public class Trilhadados implements Serializable {
         this.bairrosList = bairrosList;
     }
 
+    @XmlTransient
     public List<Superficie> getSuperficieList() {
         return superficieList;
     }
@@ -179,6 +187,7 @@ public class Trilhadados implements Serializable {
         this.superficieList = superficieList;
     }
 
+    @XmlTransient
     public List<Trilha> getTrilhaList() {
         return trilhaList;
     }
@@ -187,6 +196,7 @@ public class Trilhadados implements Serializable {
         this.trilhaList = trilhaList;
     }
 
+    @XmlTransient
     public List<Waypoint> getWaypointList() {
         return waypointList;
     }

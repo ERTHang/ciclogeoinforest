@@ -19,6 +19,7 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Persistence;
 import javax.persistence.TemporalType;
 
 /**
@@ -33,6 +34,9 @@ public class TrilhadadosJpaController implements Serializable {
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
+        if(!emf.isOpen()){
+            emf = Persistence.createEntityManagerFactory("PU");
+        }
         return emf.createEntityManager();
     }
 

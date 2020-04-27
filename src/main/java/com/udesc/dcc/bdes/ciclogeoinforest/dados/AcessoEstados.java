@@ -38,7 +38,6 @@ public class AcessoEstados {
                 }
             }
             ejc = new EstadoJpaController(emf);
-            emf.close();
         }
         return ejc;
     }

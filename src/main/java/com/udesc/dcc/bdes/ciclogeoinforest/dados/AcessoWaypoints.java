@@ -48,7 +48,6 @@ public class AcessoWaypoints {
                 }
             }
             tjc = new TrilhaJpaController(emf);
-            emf.close();
         }
         return tjc;
     }

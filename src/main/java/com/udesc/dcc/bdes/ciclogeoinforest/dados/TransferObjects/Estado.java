@@ -9,12 +9,13 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -22,6 +23,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "estado")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Estado.findAll", query = "SELECT e FROM Estado e"),
     @NamedQuery(name = "Estado.findByEstCod", query = "SELECT e FROM Estado e WHERE e.estCod = :estCod"),
@@ -35,8 +37,8 @@ public class Estado implements Serializable {
     @Basic(optional = false)
     @Column(name = "est_nome")
     private String estNome;
-    /*@OneToMany(mappedBy = "estCod")
-    private List<Cidade> cidadeList;*/
+    @OneToMany(mappedBy = "estCod")
+    private List<Cidade> cidadeList;
 
     public Estado() {
     }
@@ -66,13 +68,14 @@ public class Estado implements Serializable {
         this.estNome = estNome;
     }
 
-    /*public List<Cidade> getCidadeList() {
+    @XmlTransient
+    public List<Cidade> getCidadeList() {
         return cidadeList;
     }
 
     public void setCidadeList(List<Cidade> cidadeList) {
         this.cidadeList = cidadeList;
-    }*/
+    }
 
     @Override
     public int hashCode() {

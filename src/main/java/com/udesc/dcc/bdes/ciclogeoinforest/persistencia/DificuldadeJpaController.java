@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.Persistence;
 
 /**
  *
@@ -22,6 +23,9 @@ public class DificuldadeJpaController implements Serializable {
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
+        if(!emf.isOpen()){
+            emf = Persistence.createEntityManagerFactory("PU");
+        }
         return emf.createEntityManager();
     }
 

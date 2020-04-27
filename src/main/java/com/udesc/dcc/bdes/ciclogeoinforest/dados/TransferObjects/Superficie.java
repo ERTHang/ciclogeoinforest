@@ -16,6 +16,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -23,6 +25,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "superficie")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Superficie.findAll", query = "SELECT s FROM Superficie s"),
     @NamedQuery(name = "Superficie.findBySupCod", query = "SELECT s FROM Superficie s WHERE s.supCod = :supCod"),
@@ -100,6 +103,7 @@ public class Superficie implements Serializable {
         return "br.udesc.joinville.dcc.bdes.ciclogeoinfo.persistencia.Superficie[ supCod=" + supCod + " ]";
     }
 
+    @XmlTransient
     public List<Trilhadados> getTrilhadadosList() {
         return trilhadadosList;
     }

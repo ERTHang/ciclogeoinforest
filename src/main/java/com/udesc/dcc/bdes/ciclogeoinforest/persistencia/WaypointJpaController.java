@@ -14,6 +14,7 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Persistence;
 
 /**
  *
@@ -27,6 +28,9 @@ public class WaypointJpaController implements Serializable {
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
+        if(!emf.isOpen()){
+            emf = Persistence.createEntityManagerFactory("PU");
+        }
         return emf.createEntityManager();
     }
 

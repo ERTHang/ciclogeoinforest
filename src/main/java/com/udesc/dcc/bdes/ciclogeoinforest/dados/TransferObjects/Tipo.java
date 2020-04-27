@@ -15,6 +15,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -22,6 +24,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "tipo")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Tipo.findAll", query = "SELECT t FROM Tipo t"),
     @NamedQuery(name = "Tipo.findByTipCod", query = "SELECT t FROM Tipo t WHERE t.tipCod = :tipCod"),
@@ -85,6 +88,7 @@ public class Tipo implements Serializable {
         return "br.udesc.joinville.dcc.bdes.ciclogeoinfo.persistencia.Tipo[ tipCod=" + tipCod + " ]";
     }
 
+    @XmlTransient
     public List<Trilhadados> getTrilhadadosList() {
         return trilhadadosList;
     }

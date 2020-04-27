@@ -16,6 +16,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -23,12 +25,13 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "bairros")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Bairro.findAll", query = "SELECT b FROM Bairro b"),
     @NamedQuery(name = "Bairro.findByBaiCod", query = "SELECT b FROM Bairro b WHERE b.baiCod = :baiCod"),
     @NamedQuery(name = "Bairro.findByBaiNome", query = "SELECT b FROM Bairro b WHERE b.baiNome = :baiNome"),
-    @NamedQuery(name = "Bairro.findByCidCod", query = "SELECT b FROM Bairro b WHERE b.cidCod = :cidCod")})
-
+    @NamedQuery(name = "Bairro.findByCidCod", query = "SELECT b FROM Bairro b WHERE b.cidCod = :cidCod")})//,
+//    @NamedQuery(name = "Bairro.findByUsuCod", query = "SELECT b FROM Bairro b WHERE b.usuCod = :usuCod")})
 public class Bairro implements Serializable {
     @JoinTable(name = "bairrotrilha", joinColumns = {
         @JoinColumn(name = "bai_cod", referencedColumnName = "bai_cod")}, inverseJoinColumns = {
@@ -108,6 +111,7 @@ public class Bairro implements Serializable {
         return "br.udesc.joinville.dcc.bdes.ciclogeoinfo.persistencia.Bairros[ baiCod=" + baiCod + " ]";
     }
 
+    @XmlTransient
     public List<Trilhadados> getTrilhadadosList() {
         return trilhadadosList;
     }

@@ -38,7 +38,6 @@ public class AcessoSuperficies {
                 }
             }
             sjc = new SuperficieJpaController(emf);
-            emf.close();
         }
         return sjc;
     }

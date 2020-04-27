@@ -38,7 +38,6 @@ public class AcessoBairros {
                 }
             }
             bjc = new BairrosJpaController(emf);
-            emf.close();
         }
         return bjc;
     }

@@ -38,7 +38,6 @@ public class AcessoRegioes {
                 }
             }
             rjc = new RegiaoJpaController(emf);
-            emf.close();
         }
         return rjc;
     }

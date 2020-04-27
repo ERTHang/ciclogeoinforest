@@ -46,7 +46,6 @@ public class AcessoTrilhas {
                 }
             }
             tdjc = new TrilhadadosJpaController(emf);
-            emf.close();
         }
         return tdjc;
     }

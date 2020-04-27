@@ -16,6 +16,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -23,6 +25,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "regiao")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Regiao.findAll", query = "SELECT r FROM Regiao r"),
     @NamedQuery(name = "Regiao.findByRegCod", query = "SELECT r FROM Regiao r WHERE r.regCod = :regCod"),
@@ -89,6 +92,7 @@ public class Regiao implements Serializable {
         return "br.udesc.joinville.dcc.bdes.ciclogeoinfo.persistencia.Regiao[ regCod=" + regCod + " ]";
     }
 
+    @XmlTransient
     public List<Trilhadados> getTrilhadadosList() {
         return trilhadadosList;
     }

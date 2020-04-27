@@ -38,7 +38,6 @@ public class AcessoDificuldades {
                 }
             }
             djc = new DificuldadeJpaController(emf);
-            emf.close();
         }
         return djc;
     }

@@ -15,6 +15,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -22,6 +24,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "dificuldade")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Dificuldade.findAll", query = "SELECT d FROM Dificuldade d"),
     @NamedQuery(name = "Dificuldade.findByDifCod", query = "SELECT d FROM Dificuldade d WHERE d.difCod = :difCod"),
@@ -85,6 +88,7 @@ public class Dificuldade implements Serializable {
         return "br.udesc.joinville.dcc.bdes.ciclogeoinfo.persistencia.Dificuldade[ difCod=" + difCod + " ]";
     }
 
+    @XmlTransient
     public List<Trilhadados> getTrilhadadosList() {
         return trilhadadosList;
     }

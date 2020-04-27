@@ -16,6 +16,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -23,6 +25,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "categorias")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Categoria.findAll", query = "SELECT c FROM Categoria c"),
     @NamedQuery(name = "Categoria.findByCatCod", query = "SELECT c FROM Categoria c WHERE c.catCod = :catCod"),
@@ -89,6 +92,7 @@ public class Categoria implements Serializable {
         return "br.udesc.joinville.dcc.bdes.ciclogeoinfo.persistencia.Categorias[ catCod=" + catCod + " ]";
     }
 
+    @XmlTransient
     public List<Waypoint> getWaypointList() {
         return waypointList;
     }

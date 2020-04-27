@@ -33,7 +33,6 @@ public class AcessoImagens {
                 }
             }
             ijc = new ImagemJpaController(emf);
-            emf.close();
         }
         return ijc;
     }

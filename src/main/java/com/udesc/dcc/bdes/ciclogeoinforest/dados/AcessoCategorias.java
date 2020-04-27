@@ -38,7 +38,6 @@ public class AcessoCategorias {
                 }
             }
             cjc = new CategoriasJpaController(emf);
-            emf.close();
         }
         return cjc;
     }

@@ -38,7 +38,6 @@ public class AcessoTipos {
                 }
             }
             tjc = new TipoJpaController(emf);
-            emf.close();
         }
         return tjc;
     }

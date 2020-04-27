@@ -118,7 +118,6 @@ public class ServidorTrilhas {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("feature")
     public java.util.List<FeatureInfo> getFeatureInfo(@QueryParam("bbox1") double bbox1, @QueryParam("bbox2") double bbox2, @QueryParam("bbox3") double bbox3, @QueryParam("bbox4") double bbox4, @QueryParam("x") int x, @QueryParam("y") int y, @QueryParam("srs") int srs, @QueryParam("widthh") int widthh, @QueryParam("heightt") int heightt) {
-        System.out.println("chegou aki");
         return visualizador.getFeatureInfo(bbox1, bbox2, bbox3, bbox4, x, y, srs, widthh, heightt);
     }
     
@@ -402,7 +401,7 @@ public class ServidorTrilhas {
     
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("trilhauser{login}/{senha}/{cod}")
+    @Path("trilhauser/{login}/{senha}/{cod}")
     public java.util.List<NaoGeografico> getTrilhaUser(@PathParam("login") String login, @PathParam("senha") String senha, @PathParam("cod") Integer cod) {
         if(verificaLogin(login, senha)){
             return visualizador.getTrilhaUser(login, cod);

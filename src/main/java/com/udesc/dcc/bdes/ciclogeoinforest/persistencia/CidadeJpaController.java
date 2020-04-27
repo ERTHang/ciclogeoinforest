@@ -12,10 +12,6 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.Persistence;
 
-/**
- *
- * @author Leandro
- */
 public class CidadeJpaController implements Serializable {
 
     public CidadeJpaController(EntityManagerFactory emf) {
@@ -24,9 +20,6 @@ public class CidadeJpaController implements Serializable {
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
-        if(!emf.isOpen()){
-            emf = Persistence.createEntityManagerFactory("PU");
-        }
         return emf.createEntityManager();
     }
 
@@ -59,7 +52,7 @@ public class CidadeJpaController implements Serializable {
             }
             em.persist(cidade);
             if (estCod != null) {
-                //estCod.getCidadeList().add(cidade);
+                estCod.getCidadeList().add(cidade);
                 estCod = em.merge(estCod);
             }
             em.getTransaction().commit();
@@ -89,11 +82,11 @@ public class CidadeJpaController implements Serializable {
             }
             cidade = em.merge(cidade);
             if (estCodOld != null && !estCodOld.equals(estCodNew)) {
-                //estCodOld.getCidadeList().remove(cidade);
+                estCodOld.getCidadeList().remove(cidade);
                 estCodOld = em.merge(estCodOld);
             }
             if (estCodNew != null && !estCodNew.equals(estCodOld)) {
-                //estCodNew.getCidadeList().add(cidade);
+                estCodNew.getCidadeList().add(cidade);
                 estCodNew = em.merge(estCodNew);
             }
             em.getTransaction().commit();
@@ -127,7 +120,7 @@ public class CidadeJpaController implements Serializable {
             }
             Estado estCod = cidade.getEstCod();
             if (estCod != null) {
-                //estCod.getCidadeList().remove(cidade);
+                estCod.getCidadeList().remove(cidade);
                 estCod = em.merge(estCod);
             }
             em.remove(cidade);

@@ -11,11 +11,8 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Persistence;
 
-/**
- *
- * @author Leandro
- */
 public class EstadoJpaController implements Serializable {
 
     public EstadoJpaController(EntityManagerFactory emf) {
@@ -24,25 +21,28 @@ public class EstadoJpaController implements Serializable {
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
+        if(!emf.isOpen()){
+            emf = Persistence.createEntityManagerFactory("PU");
+        }
         return emf.createEntityManager();
     }
 
     public void create(Estado estado) throws PreexistingEntityException, Exception {
-        /*if (estado.getCidadeList() == null) {
+        if (estado.getCidadeList() == null) {
             estado.setCidadeList(new ArrayList<Cidade>());
-        }*/
+        }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
             List<Cidade> attachedCidadeList = new ArrayList<Cidade>();
-            /*for (Cidade cidadeListCidadeToAttach : estado.getCidadeList()) {
+            for (Cidade cidadeListCidadeToAttach : estado.getCidadeList()) {
                 cidadeListCidadeToAttach = em.getReference(cidadeListCidadeToAttach.getClass(), cidadeListCidadeToAttach.getCidCod());
                 attachedCidadeList.add(cidadeListCidadeToAttach);
-            }*/
-            //estado.setCidadeList(attachedCidadeList);
+            }
+            estado.setCidadeList(attachedCidadeList);
             em.persist(estado);
-            /*for (Cidade cidadeListCidade : estado.getCidadeList()) {
+            for (Cidade cidadeListCidade : estado.getCidadeList()) {
                 Estado oldEstCodOfCidadeListCidade = cidadeListCidade.getEstCod();
                 cidadeListCidade.setEstCod(estado);
                 cidadeListCidade = em.merge(cidadeListCidade);
@@ -50,7 +50,7 @@ public class EstadoJpaController implements Serializable {
                     oldEstCodOfCidadeListCidade.getCidadeList().remove(cidadeListCidade);
                     oldEstCodOfCidadeListCidade = em.merge(oldEstCodOfCidadeListCidade);
                 }
-            }*/
+            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             if (findEstado(estado.getEstCod()) != null) {
@@ -70,17 +70,17 @@ public class EstadoJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Estado persistentEstado = em.find(Estado.class, estado.getEstCod());
-            //List<Cidade> cidadeListOld = persistentEstado.getCidadeList();
-            //List<Cidade> cidadeListNew = estado.getCidadeList();
+            List<Cidade> cidadeListOld = persistentEstado.getCidadeList();
+            List<Cidade> cidadeListNew = estado.getCidadeList();
             List<Cidade> attachedCidadeListNew = new ArrayList<Cidade>();
-            /*for (Cidade cidadeListNewCidadeToAttach : cidadeListNew) {
+            for (Cidade cidadeListNewCidadeToAttach : cidadeListNew) {
                 cidadeListNewCidadeToAttach = em.getReference(cidadeListNewCidadeToAttach.getClass(), cidadeListNewCidadeToAttach.getCidCod());
                 attachedCidadeListNew.add(cidadeListNewCidadeToAttach);
             }
             cidadeListNew = attachedCidadeListNew;
-            estado.setCidadeList(cidadeListNew);*/
+            estado.setCidadeList(cidadeListNew);
             estado = em.merge(estado);
-            /*for (Cidade cidadeListOldCidade : cidadeListOld) {
+            for (Cidade cidadeListOldCidade : cidadeListOld) {
                 if (!cidadeListNew.contains(cidadeListOldCidade)) {
                     cidadeListOldCidade.setEstCod(null);
                     cidadeListOldCidade = em.merge(cidadeListOldCidade);
@@ -96,7 +96,7 @@ public class EstadoJpaController implements Serializable {
                         oldEstCodOfCidadeListNewCidade = em.merge(oldEstCodOfCidadeListNewCidade);
                     }
                 }
-            }*/
+            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
@@ -126,11 +126,11 @@ public class EstadoJpaController implements Serializable {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The estado with id " + id + " no longer exists.", enfe);
             }
-            //List<Cidade> cidadeList = estado.getCidadeList();
-            /*for (Cidade cidadeListCidade : cidadeList) {
+            List<Cidade> cidadeList = estado.getCidadeList();
+            for (Cidade cidadeListCidade : cidadeList) {
                 cidadeListCidade.setEstCod(null);
                 cidadeListCidade = em.merge(cidadeListCidade);
-            }*/
+            }
             em.remove(estado);
             em.getTransaction().commit();
         } finally {

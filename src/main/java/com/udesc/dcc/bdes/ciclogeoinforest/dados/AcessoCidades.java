@@ -37,7 +37,6 @@ public class AcessoCidades {
                 }
             }
             cjc = new CidadeJpaController(emf);
-            emf.close();
         }
         return cjc;
     }
